@@ -1,12 +1,10 @@
 package ru.gavk.targsoft;
 
-import org.eclipse.collections.impl.collector.Collectors2;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,18 +21,15 @@ public class TransactionsTest {
         transactions.loadFromFile(transactionFileName);
     }
 
-
     @Test
     public void ApplyFilterCountTest() {
-        List<Record> result = transactions.applyFilter(fromDate, toDate, merchant);
-        assertEquals(1, result.size());
+        transactions.applyFilter(fromDate, toDate, merchant);
+        assertEquals(1, transactions.getCount());
     }
 
     @Test
     public void applyFilterAverageCost() {
-        List<Record> filterRecords = transactions.applyFilter(fromDate, toDate, merchant);
-        BigDecimal average = filterRecords.stream()
-                .collect(Collectors2.summarizingBigDecimal(Record::getCost)).getAverage();
-        assertEquals(new BigDecimal("59.99"), average);
+        transactions.applyFilter(fromDate, toDate, merchant);
+        assertEquals(new BigDecimal("59.99"), transactions.getAverage());
     }
 }

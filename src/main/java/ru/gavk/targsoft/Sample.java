@@ -10,6 +10,8 @@ public class Sample {
         String merchant = "Kwik-E-Mart";
         Transactions transactions = new Transactions();
         transactions.loadFromFile(transactionFileName);
-        transactions.applyFilter(fromDate, toDate, merchant).forEach(System.out::println);
+        transactions.applyFilter(fromDate, toDate, merchant);
+        System.out.printf("Number of transactions = %d\nAverage Transaction Value = %s",
+                transactions.getCount(), transactions.getAverage());
     }
 }

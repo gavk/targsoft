@@ -1,9 +1,20 @@
-# URL
+# Content
+
+- [URL](#url)
+- [The Coding Challenge](#tcc)
+- [The Transaction Analyser](#tta)
+- [The Problem](#problem)
+- [Assumptions](#assumptions)
+- [Deliverable](#deliverable)
+- [Usage](#usage)
+
+
+# <a name = "url"></a> URL
 
 https://vladivostok.hh.ru/vacancy/39858309
 
 
-# The Coding Challenge
+# <a name = "tcc"></a> The Coding Challenge
 
 This is a good opportunity to show how you approach to a specific problem.
 We are looking for programmatic, maintainable code, as well as tests to prove your code works. 
@@ -13,7 +24,7 @@ Having said that, Spring, Hibernate, or in-memory database are definitely an ove
 When creating your solution, please build this in a manner as if this was being deployed in to a production environment.
  
 
-# The Transaction Analyser
+# <a name = "tta"></a> The Transaction Analyser
 
 Consider the following simplified financial transaction analysis system.
  
@@ -27,7 +38,7 @@ Type - The type of the transaction, which could be either PAYMENT or REVERSAL
 Related Transaction - (Optional) - In the case a REVERSAL transaction, this field will contain the ID of the transaction it is reversing.
 
 
-# The Problem
+# <a name = problem></a> The Problem
 
 The system will be Initialised with an input file in CSV format containing a list of transaction records.
 Once initialised, the system should report the total number of transactions and the average transaction value for a specific merchant in a specific date range.
@@ -48,16 +59,20 @@ Given the above CSV file and the following input arguments:
 - merchant: Kwik-E-Mart
 
 The output will be:
-- Number of transactions = 1
-- Average Transaction Value = 59.99
+
+```
+Number of transactions = 1
+Average Transaction Value = 59.99
+```
+
  
-# Assumptions
+# <a name = assumptions></a> Assumptions
 
 For the sake of simplicity, you can assume that Transaction records are listed in correct time order.
 The input file is well formed and is not missing data.
 
 
-# Deliverable
+# <a name = deliverable></a> Deliverable
 
 - Please send us the source code and make sure there are no compilation errors.
 - Use as much of Java 8 (and beyond) components as you can.
@@ -72,3 +87,26 @@ This is a test of your capability to:
 - make a simple and elegant solution – not a complex one!
 
 Again, your solution should be “production-ready”. Good luck and I look forward to seeing your response.
+
+
+# <a name = "usage"></a>  Usage
+
+```java
+import ru.gavk.targsoft.Transactions;
+
+import java.io.IOException;
+
+public class Sample {
+    public static void main(String[] args) throws IOException {
+        String transactionFileName = "transaction.csv";
+        String fromDate = "20/08/2018 12:00:00";
+        String toDate = "20/08/2018 13:00:00";
+        String merchant = "Kwik-E-Mart";
+        Transactions transactions = new Transactions();
+        transactions.loadFromFile(transactionFileName);
+        transactions.applyFilter(fromDate, toDate, merchant);
+        System.out.printf("Number of transactions = %d\nAverage Transaction Value = %s",
+                transactions.getCount(), transactions.getAverage());
+    }
+}
+```
